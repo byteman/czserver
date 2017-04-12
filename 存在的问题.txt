@@ -1,0 +1,7 @@
+称重数据，显示下一页和上一页没有作用
+地图上gps可以显示全部车辆的位置
+加一个gps的数据列表。
+
+
+gps定位工具网站
+http://www.gpsspg.com/maps.htm 
