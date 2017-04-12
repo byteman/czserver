@@ -37,12 +37,49 @@ type UploadDevController struct {
 type GpsListController struct {
 	beego.Controller
 }
-
+type LoginController struct {
+	beego.Controller
+}
+type UserLogin struct {
+	Name string
+	Pwd string
+}
+//登陆逻辑处理
+func (c *LoginController) Post(){
+	fmt.Println("Login")
+	res := make(map[string]interface{})
+	result := -1
+	role:=0
+	message := "ok"
+	fmt.Println(c.Ctx.Input.RequestBody)
+	u:=UserLogin{}
+	defer func() {
+		res["result"] = result
+		res["role"] = role
+		res["message"] = message
+		c.Data["json"] = res
+		c.ServeJSON()
+	}()
+	err := json.Unmarshal(c.Ctx.Input.RequestBody, &u)
+	if err != nil {
+		fmt.Println(err)
+		result=-2
+		return
+	}
+	if u.Name=="admin" {
+		if u.Pwd == "123456"{
+			role=1
+			result=0
+		}else if u.Pwd == "123321"{
+			role=2
+			result=0
+		}
+	}
+	fmt.Printf("%+v", u)
+	return
+}
 func (c *UploadDevController) Post() {
-	//devid filename action
-	//	devid := c.getInt("devid")
-	//	filename := c.getString("filename")
-	//	action := c.getString("action")
+
 }
 
 func (c *MainController) Get() {

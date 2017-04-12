@@ -18,6 +18,7 @@ func init() {
 	beego.Router("/gps", &controllers.GpsController{})
 	beego.Router("/upload", &controllers.UploadController{})
 	beego.Router("/uploadDevice", &controllers.UploadDevController{})
+	beego.Router("/login", &controllers.LoginController{})
 
 	beego.AutoRouter(&controllers.RController{})
 }
