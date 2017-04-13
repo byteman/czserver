@@ -25,7 +25,7 @@ angular.
         controller: 'UpdateCtrl'
     }).
 	when('/gps', {
-        templateUrl: 'gps2.html',
+        templateUrl: 'gps.html',
         controller: 'GpsCtrl'
     }).
     otherwise({

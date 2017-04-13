@@ -96,7 +96,7 @@ type JsonGpsData struct {
 
 func (c *GpsController) Get() {
 
-	fmt.Println("weight reqeust")
+	fmt.Println("GPS reqeust")
 	var cond = ""
 	page, err := c.GetInt("pages")
 	if err != nil {
@@ -111,7 +111,7 @@ func (c *GpsController) Get() {
 
 	fmt.Println("page=", page, "id=", id)
 
-	all, pagesize, rs := GetPagesInfo("gps", page, 10, cond)
+	all, pagesize, rs := GetPagesInfo("gps", page, 20, cond)
 
 	gps := make([]models.Gps, 0)
 
@@ -144,8 +144,8 @@ type JsonData struct {
  * 参数：表名，当前页数，页面大小，条件（查询条件,格式为 " and name='zhifeiya' and age=12 "）
  */
 func GetPagesInfo(tableName string, currentpage int, pagesize int, conditions string) (int, int, orm.RawSeter) {
-	if currentpage <= 1 {
-		currentpage = 1
+	if currentpage < 0 {
+		currentpage = 0
 	}
 	if pagesize == 0 {
 		pagesize = 20
@@ -165,7 +165,7 @@ func GetPagesInfo(tableName string, currentpage int, pagesize int, conditions st
 		}
 		totalpages = temp
 	}
-	sql = "select *  from  " + tableName + " where 1>0" + conditions + " order by id desc " + " LIMIT " + con.Itoa((currentpage-1)*pagesize) + "," + con.Itoa(pagesize)
+	sql = "select *  from  " + tableName + " where 1>0" + conditions + " order by id desc " + " LIMIT " + con.Itoa((currentpage)*pagesize) + "," + con.Itoa(pagesize)
 	fmt.Println(sql)
 	rs = o.Raw(sql)
 	return totalItem, totalpages, rs
@@ -185,7 +185,7 @@ func (c *WeightController) Get() {
 	}
 	fmt.Println("page=", page, "id=", id)
 
-	all, pagesize, rs := GetPagesInfo("one_weight", page, 10, cond)
+	all, pagesize, rs := GetPagesInfo("one_weight", page, 20, cond)
 
 	//o := orm.NewOrm()
 	ws := make([]models.OneWeight, 0)
