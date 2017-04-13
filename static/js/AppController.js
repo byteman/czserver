@@ -24,6 +24,14 @@ app.controller('AppController', function($scope,$http) {
                     $scope.role=data.role
                     console.log($scope.isUserAuth)
                 }
+                else{
+                    bootbox.alert({
+                            message: "用户名或者密码错误",
+                            size: 'small'
+                        }
+                    );
+
+                }
             }
         ).error(
             function(data,status,headers,config)
