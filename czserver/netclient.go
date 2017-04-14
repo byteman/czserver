@@ -157,6 +157,8 @@ func UpdateParam(info *DevInfo) {
 	if c, ok := clientList[info.IpAddr]; ok { //存在}
 		writeParam(c, CMD_K, int(info.K*1000000))
 		c.Device.K = info.K
+	}else{
+		fmt.Println("can not find ",info.IpAddr)
 	}
 }
 func handleOnline(ipaddr string, dev *DevicePara) {
